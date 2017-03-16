@@ -10,6 +10,7 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-edit-notification': Popup.open('editNotification'),
+  'click .js-api-key': Popup.open('configureApiKey'),
   'click .js-logout'(evt) {
     evt.preventDefault();
 
@@ -115,4 +116,18 @@ Template.changeSettingsPopup.events({
       Popup.back();
     }
   },
+});
+
+Template.configureApiKeyPopup.events({
+  'click .js-api-key-generate'(evt, tpl) {
+    evt.preventDefault();
+    Meteor.call('generateApiKey', (err, data) => {
+      tpl.$('.js-profile-apiKey').val(data);
+    });
+  },
+  'click .js-api-key-delete'(evt, tpl) {
+    evt.preventDefault();
+    Meteor.call('deleteApiKey');
+    tpl.$('.js-profile-apiKey').val("");
+  }
 });

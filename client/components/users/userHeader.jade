@@ -17,6 +17,7 @@ template(name="memberMenuPopup")
       li: a.js-change-password {{_ 'changePasswordPopup-title'}}
       li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
       li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
+      li: a.js-api-key {{_ 'configureApiKeyPopup-title'}}
     if currentUser.isAdmin
       li: a.js-go-setting(href='/setting') {{_ 'admin-panel'}}
   hr
@@ -79,3 +80,13 @@ template(name="changeSettingsPopup")
         | {{_ 'show-cards-minimum-count'}}
       input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="1" max="99" onkeydown="return false")
       input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
+
+template(name="configureApiKeyPopup")
+  form
+    label
+      | {{_ 'api-key'}}
+      input.js-profile-apiKey(type="text" value=profile.apiKey disabled autofocus)
+    button.js-api-key-generate
+      | {{_ 'api-key-generate'}}
+    button.js-api-key-delete
+      | {{_ 'api-key-delete'}}

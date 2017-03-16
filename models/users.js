@@ -59,6 +59,10 @@ Users.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'profile.apiKey': {
+    type: String,
+    optional: true,
+  },
   'profile.hiddenSystemMessages': {
     type: Boolean,
     optional: true,
@@ -315,6 +319,22 @@ Meteor.methods({
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
+  },
+  generateApiKey() {
+    const newApiKey = Random.id(32);
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.apiKey": newApiKey
+      }
+    });
+    return newApiKey;
+  },
+  deleteApiKey() {
+    Users.update(Meteor.userId(), {
+      $set: {
+        "profile.apiKey": ""
+      }
+    });
   },
 });
 
